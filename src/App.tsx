@@ -248,7 +248,7 @@ function BentoAbout() {
 
           {/* Photo slideshow */}
           <AS delay={200}><div className="premium-card h-full overflow-hidden relative" style={{borderRadius:28}}>
-            <img src={PORTRAIT} alt="Pranjal" className="absolute inset-0 w-full h-full object-cover object-top slide-a" loading="lazy"/>
+            <img src={PORTRAIT} alt="Pranjal" className="absolute inset-0 w-full h-full object-cover slide-a" style={{objectPosition:'center 30%'}} loading="lazy"/>
             <img src={AWARD} alt="Award" className="absolute inset-0 w-full h-full object-cover slide-b" loading="lazy"/>
             <div className="absolute inset-0 border border-violet-500/10 rounded-[28px] pointer-events-none"/>
           </div></AS>
