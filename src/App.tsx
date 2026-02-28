@@ -84,12 +84,12 @@ function Typewriter({ lines, speed = 40 }: { lines: string[]; speed?: number }) 
 
 // ═══ Q&A CHAT ═══
 const qa: Record<string,string> = {
-  'Work':"I architect scalable, AI-driven web and mobile systems for performance, reliability, and growth.",
-  'About':"CS student at Chitkara University. I turn complex problems into elegant solutions. Shipped 2+ production projects.",
-  'Skills':"TypeScript, React, Next.js, Node.js, Python, Tailwind, PostgreSQL, MongoDB, Docker, Spring Boot, Expo, C++.",
+  'Work':"I'm a Front-End Developer who interned at Souleeze Ventures, where I cut page load by 28%, refactored 15+ components, and hit 99.5% frontend stability. I build scalable AI-driven platforms.",
+  'About':"CS student at Chitkara University (CGPA 8.87/10). I've shipped 3 production projects including a real-time platform handling 500+ concurrent users and an AI career coach with 1,000+ resume analyses.",
+  'Skills':"JavaScript, TypeScript, Java, Python, React 18, Next.js 14, Node.js, Spring Boot 3, Tailwind, PostgreSQL, MongoDB, MySQL, Redis, Docker, AWS, GraphQL, Prisma, OpenAI API, Gemini API, LangChain.",
   'Contact':"udhwanipranjal@gmail.com • linkedin.com/in/pranjal-udhwani • github.com/Pranjal0410",
-  'Hackathons':"Winner at Phosphenes hackathon (Chitkara). I thrive on rapid prototyping AI/ML projects under pressure.",
-  'Education':"B.Tech CS at Chitkara University. Strong in algorithms, data structures, system design, and AI/ML.",
+  'Hackathons':"Winner at Phosphenes hackathon at Chitkara. I thrive on rapid prototyping and built AI/ML solutions under 24-hour pressure.",
+  'Education':"B.E. Computer Science at Chitkara University, Rajpura (CGPA 8.87/10, graduating May 2027). Coursework: DSA, DBMS, OS, Computer Networks, OOD, Software Engineering.",
 }
 function Chat() {
   const [msgs, setMsgs] = useState<{r:string;t:string}[]>([]); const [typing, setTyping] = useState(false); const [input, setInput] = useState(''); const scrollRef = useRef<HTMLDivElement>(null)
@@ -121,7 +121,7 @@ function SkillGlobe() {
   useEffect(()=>{const up=()=>{dragging.current=false};window.addEventListener('mouseup',up);window.addEventListener('touchend',up);return()=>{window.removeEventListener('mouseup',up);window.removeEventListener('touchend',up)}},[])
   const R=210,toRad=(d:number)=>d*Math.PI/180
   const getPos=(lat:number,lon:number)=>{const la=toRad(lat),lo=toRad(lon+rotY),rx=toRad(rotX);let x=R*Math.cos(la)*Math.sin(lo),y=-R*Math.sin(la),z=R*Math.cos(la)*Math.cos(lo);const y2=y*Math.cos(rx)-z*Math.sin(rx),z2=y*Math.sin(rx)+z*Math.cos(rx);return{x,y:y2,z:z2}}
-  const icons=[{n:'TypeScript',c:'#3178C6',la:20,lo:0},{n:'React',c:'#61DAFB',la:20,lo:72},{n:'Next.js',c:'#fff',la:20,lo:144},{n:'Node.js',c:'#339933',la:20,lo:216},{n:'Python',c:'#3776AB',la:20,lo:288},{n:'Tailwind',c:'#06B6D4',la:-20,lo:36},{n:'PostgreSQL',c:'#4169E1',la:-20,lo:108},{n:'Docker',c:'#2496ED',la:-20,lo:180},{n:'Git',c:'#F05032',la:-20,lo:252},{n:'C++',c:'#00599C',la:-20,lo:324},{n:'MongoDB',c:'#47A248',la:55,lo:60},{n:'Spring',c:'#6DB33F',la:55,lo:180},{n:'Figma',c:'#F24E1E',la:55,lo:300},{n:'Expo',c:'#aaa',la:-55,lo:120},{n:'Vercel',c:'#fff',la:-55,lo:240}]
+  const icons=[{n:'TypeScript',c:'#3178C6',la:20,lo:0},{n:'React',c:'#61DAFB',la:20,lo:51},{n:'Next.js',c:'#fff',la:20,lo:102},{n:'Node.js',c:'#339933',la:20,lo:153},{n:'Python',c:'#3776AB',la:20,lo:204},{n:'Java',c:'#ED8B00',la:20,lo:255},{n:'Spring Boot',c:'#6DB33F',la:20,lo:306},{n:'PostgreSQL',c:'#4169E1',la:-20,lo:36},{n:'MongoDB',c:'#47A248',la:-20,lo:108},{n:'Redis',c:'#DC382D',la:-20,lo:180},{n:'Docker',c:'#2496ED',la:-20,lo:252},{n:'AWS',c:'#FF9900',la:-20,lo:324},{n:'GraphQL',c:'#E10098',la:55,lo:60},{n:'Tailwind',c:'#06B6D4',la:55,lo:180},{n:'OpenAI',c:'#10A37F',la:55,lo:300},{n:'Prisma',c:'#2D3748',la:-55,lo:90},{n:'LangChain',c:'#1C3C3C',la:-55,lo:210},{n:'Git',c:'#F05032',la:-55,lo:330}]
   const wires:ReactElement[]=[];for(let lon=0;lon<180;lon+=30){const pts:string[]=[];const pts2:string[]=[];for(let lat=-90;lat<=90;lat+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`);const p2=getPos(lat,lon+90);pts2.push(`${p2.x+R+50},${p2.y+R+50}`)};wires.push(<polyline key={`a${lon}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="0.8"/>);wires.push(<polyline key={`b${lon}`} points={pts2.join(' ')} fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="0.8"/>)}
   for(let lat=-60;lat<=60;lat+=30){const pts:string[]=[];for(let lon=0;lon<=360;lon+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`)};wires.push(<polyline key={`c${lat}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="0.8"/>)}
   const positioned=icons.map(ic=>({...ic,...getPos(ic.la,ic.lo)})).sort((a,b)=>a.z-b.z)
@@ -167,7 +167,7 @@ function InfoCards() {
   const [hovered, setHovered] = useState<number | null>(null)
   const cards = [
     { t: 'Coding Club', txt: 'Active member building AI-powered applications and collaborative learning systems at Chitkara.' },
-    { t: 'University', txt: 'Pursuing Computer Science at Chitkara University. Strong foundations in AI, systems design, and scalable architecture.' },
+    { t: 'University', txt: 'Pursuing B.E. Computer Science at Chitkara University, Rajpura (CGPA 8.87/10, graduating May 2027). Coursework: DSA, DBMS, OS, Computer Networks, OOD.' },
     { t: 'Competitions', txt: 'Winner at Phosphenes Hackathon. Active competitor focused on AI/ML rapid prototyping under pressure.' },
   ]
 
@@ -256,7 +256,7 @@ function BentoAbout() {
           {/* Craft */}
           <AS delay={250} className="row-span-2"><TiltCard className="h-full flex flex-col justify-between overflow-hidden">
             <div className="p-7 pb-0"><h4 className="text-2xl font-bold text-white mb-2">Craft</h4><div className="h-0.5 w-8 bg-fuchsia-500/60 rounded-full mb-4"/><p className="text-sm text-zinc-400 leading-relaxed">Building scalable <strong className="text-zinc-200">apps, websites, and AI systems</strong>.</p><p className="text-sm text-zinc-400 leading-relaxed mt-2">I understand what modern tech can provide, helping deliver solutions a business <strong className="text-zinc-200">actually needs</strong>.</p></div>
-            <div className="relative w-full py-3 border-y border-white/[0.04] my-3 overflow-hidden"><div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[rgba(18,16,32,1)] to-transparent z-10"/><div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[rgba(18,16,32,1)] to-transparent z-10"/><div className="animate-marquee">{[0,1].map(s=><div key={s} className="flex gap-5 items-center shrink-0 pr-5">{['Docker','Git','Next.js','React','TS','Python','Node','Tailwind'].map(t=><span key={`${s}-${t}`} className="text-[9px] font-mono font-medium text-zinc-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 hover:text-violet-400 transition-colors cursor-default"><span className="w-1.5 h-1.5 rounded-sm bg-violet-500/30"/>{t}</span>)}</div>)}</div></div>
+            <div className="relative w-full py-3 border-y border-white/[0.04] my-3 overflow-hidden"><div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[rgba(18,16,32,1)] to-transparent z-10"/><div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[rgba(18,16,32,1)] to-transparent z-10"/><div className="animate-marquee">{[0,1].map(s=><div key={s} className="flex gap-5 items-center shrink-0 pr-5">{['React','Next.js','Node.js','Spring Boot','TypeScript','Python','PostgreSQL','Docker','AWS','Redis'].map(t=><span key={`${s}-${t}`} className="text-[9px] font-mono font-medium text-zinc-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 hover:text-violet-400 transition-colors cursor-default"><span className="w-1.5 h-1.5 rounded-sm bg-violet-500/30"/>{t}</span>)}</div>)}</div></div>
             <div className="p-7 pt-0"><p className="text-xs text-zinc-400 mb-3">Active Hackathon competitor. Feel free to invite me to collaborate.</p><div className="flex items-center gap-2"><span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"/><span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"/></span><span className="text-[10px] font-medium text-zinc-400">Open to collaboration & freelance</span></div></div>
           </TiltCard></AS>
 
@@ -275,8 +275,41 @@ function BentoAbout() {
   )
 }
 
+// ═══ EXPERIENCE ═══
+function ExperienceSection() {
+  const metrics = [
+    { stat: '28%', label: 'Page load reduced (2.5s → 1.8s) via code-splitting, React.memo & lazy loading' },
+    { stat: '15+', label: 'Legacy components refactored into reusable library, eliminating 40% duplicated UI logic' },
+    { stat: '99.5%', label: 'Frontend stability achieved by resolving 12 critical UI-API integration issues' },
+    { stat: '78%', label: 'Test coverage (up from 45%) with Jest & React Testing Library (WCAG 2.1 AA)' },
+  ]
+  return (
+    <section id="experience" className="py-28 px-4 max-w-[1200px] mx-auto relative z-10">
+      <AS><div className="text-center mb-16"><span className="text-sm font-bold text-violet-400 uppercase tracking-[0.2em]">Experience</span><h2 className="mt-4 text-4xl sm:text-5xl md:text-[64px] font-extrabold tracking-tighter text-white leading-[1]">Where I've <span className="shimmer-text">Worked</span></h2></div></AS>
+      <AS delay={150}><TiltCard className="p-8 md:p-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
+          <div>
+            <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">Front-End Developer Intern</h3>
+            <p className="text-sm text-zinc-400 mt-1">Souleeze Ventures Private Limited <span className="text-zinc-600">•</span> Faridabad, Haryana</p>
+          </div>
+          <span className="text-[11px] font-mono text-violet-400 tracking-wide shrink-0">Mar 2025 – Oct 2025</span>
+        </div>
+        <div className="h-px w-full bg-gradient-to-r from-violet-500/20 via-fuchsia-500/10 to-transparent mb-6"/>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {metrics.map((m, i) => (
+            <div key={i} className="flex items-start gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
+              <span className="text-lg font-extrabold text-violet-400 shrink-0 w-14 text-right">{m.stat}</span>
+              <p className="text-sm text-zinc-400 leading-relaxed">{m.label}</p>
+            </div>
+          ))}
+        </div>
+      </TiltCard></AS>
+    </section>
+  )
+}
+
 // ═══ PROJECTS ═══
-const projects=[{num:'01',type:'AI Platform',title:'AI-Powered Web Platform',desc:'Full-stack generative AI platform with real-time inference and intelligent workflows.',result:'Shipped to production — 1000+ daily requests.',tags:['Next.js','Python','OpenAI','PostgreSQL'],gradient:'from-violet-600 to-fuchsia-600'},{num:'02',type:'Mobile App',title:'Cross-Platform Mobile App',desc:'Production-ready mobile app with real-time sync and offline-first architecture.',result:'Built in 3 weeks with React Native + Expo.',tags:['React Native','Expo','Node.js','MongoDB'],gradient:'from-emerald-500 to-cyan-500'},{num:'03',type:'Backend',title:'Scalable Microservices',desc:'High-performance microservices with sub-100ms latency at scale.',result:'Handles 5000+ concurrent connections.',tags:['Node.js','Docker','PostgreSQL','Redis'],gradient:'from-orange-500 to-amber-500'},{num:'04',type:'Web App',title:'Real-Time Dashboard',desc:'Live data visualization with complex filtering and responsive analytics.',result:'Used daily for team decision-making.',tags:['React','TypeScript','Tailwind','D3.js'],gradient:'from-sky-500 to-blue-600'}]
+const projects=[{num:'01',type:'Real-Time Platform',title:'Real-Time Incident Response Platform',desc:'Built a real-time incident coordination platform supporting 500+ concurrent users with WebSocket-based state synchronization, live presence indicators, and immutable audit logging.',result:'500+ concurrent users • 35% faster incident resolution • Event-driven architecture with REST + WebSockets',tags:['React','Node.js','Socket.io','MongoDB','Zustand','JWT'],gradient:'from-violet-600 to-fuchsia-600'},{num:'02',type:'AI Platform',title:'AI Career Coach Platform',desc:'Full-stack career coaching app with OAuth 2.0 authentication, personalized onboarding, GPT-4 and Gemini API integration for resume analysis, cover letter generation, and mock interviews.',result:'1,000+ resume analyses • Sub-2s response times • ATS-optimized PDF export • Scheduled cron jobs for industry insights',tags:['Next.js 14','Prisma','PostgreSQL','OpenAI API','Gemini API','Clerk Auth'],gradient:'from-emerald-500 to-cyan-500'},{num:'03',type:'Backend System',title:'Real Estate Investment Platform',desc:'Role-based investment system backend handling 10,000+ daily transactions with ACID-compliant operations, JWT authentication with refresh token rotation, and normalized MySQL schema.',result:'10,000+ daily transactions • 95% code coverage • RBAC for investor/admin/analyst roles',tags:['Java 17','Spring Boot 3','MySQL','REST APIs','JWT'],gradient:'from-orange-500 to-amber-500'}]
 
 // ═══ GUESTBOOK ═══
 function Guestbook({onBack}:{onBack:()=>void}) {
@@ -357,7 +390,7 @@ function ExploreSection({onGuestbook, onLinks}:{onGuestbook:()=>void; onLinks:()
 function Navbar({onGuestbook}:{onGuestbook:()=>void}) {
   const [s,setS]=useState(false);const [o,setO]=useState(false)
   useEffect(()=>{const h=()=>setS(window.scrollY>40);window.addEventListener('scroll',h);return()=>window.removeEventListener('scroll',h)},[])
-  const links=['Home','About','Projects','Skills','Contact']
+  const links=['Home','About','Experience','Projects','Skills','Contact']
   return(<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${s?'py-3':'py-5'}`}><nav className="max-w-6xl mx-auto px-5 lg:px-8"><div className="hidden lg:flex items-center justify-center relative"><div className="absolute left-0"><a href="#home" className="text-xl font-extrabold tracking-tighter text-white" style={{letterSpacing:'-0.03em'}}>P<span className="shimmer-text">U</span></a></div><div className="flex items-center gap-1 nav-glass rounded-full h-12 px-6">{links.map(l=><a key={l} href={`#${l.toLowerCase()}`} className="text-sm font-medium rounded-full px-4 py-2 text-zinc-400 hover:text-white transition-colors">{l}</a>)}<button onClick={onGuestbook} className="text-sm font-medium rounded-full px-4 py-2 text-violet-400 hover:text-violet-300 transition-colors">Guestbook</button></div><div className="absolute right-0"><a href="mailto:udhwanipranjal@gmail.com" className="nav-glass rounded-full h-12 px-5 flex items-center gap-2 text-sm font-semibold text-white hover:scale-105 transition-transform min-h-[44px]">✉️ Get in Touch</a></div></div><div className="flex lg:hidden items-center justify-between"><a href="#home" className="text-xl font-extrabold tracking-tighter text-white">P<span className="shimmer-text">U</span></a><button onClick={()=>setO(!o)} className="nav-glass rounded-full p-3 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Menu"><div className="w-5 h-4 flex flex-col justify-between"><span className={`block h-0.5 w-5 rounded-full bg-white transition-transform duration-300 ${o?'rotate-45 translate-y-[7px]':''}`}/><span className={`block h-0.5 w-5 rounded-full bg-white transition-opacity duration-300 ${o?'opacity-0':''}`}/><span className={`block h-0.5 w-5 rounded-full bg-white transition-transform duration-300 ${o?'-rotate-45 -translate-y-[7px]':''}`}/></div></button></div>{o&&<div className="lg:hidden nav-glass rounded-2xl mt-3 p-4 flex flex-col gap-1">{links.map(l=><a key={l} href={`#${l.toLowerCase()}`} onClick={()=>setO(false)} className="text-sm font-medium rounded-full px-5 py-3 text-zinc-300 hover:text-white text-center min-h-[44px] flex items-center justify-center">{l}</a>)}<button onClick={()=>{setO(false);onGuestbook()}} className="text-sm font-medium rounded-full px-5 py-3 text-violet-400 text-center min-h-[44px]">Guestbook</button></div>}</nav></header>)
 }
 
@@ -366,9 +399,9 @@ function Hero() {
   return(<section id="home" className="relative flex items-center justify-center px-4 overflow-hidden z-10" style={{minHeight:'100vh',paddingTop:'7rem',paddingBottom:'4rem'}}><div className="relative z-10 w-full max-w-3xl mx-auto text-center">
     <AS><div className="flex justify-center mb-6"><div className="text-8xl sm:text-9xl" style={{filter:'drop-shadow(0 0 40px rgba(139,92,246,0.15))'}}>👩‍💻</div></div></AS>
     <AS delay={100}><h1 className="text-4xl sm:text-5xl md:text-[68px] font-extrabold tracking-tighter leading-[1] mb-3" style={{letterSpacing:'-0.03em'}}>Hi, I'm <span className="shimmer-text">Pranjal Udhwani</span></h1><p className="text-lg sm:text-xl md:text-2xl text-zinc-400 font-medium tracking-tight mb-5">I design intelligent product experiences that scale.</p></AS>
-    <AS delay={250}><p className="text-lg sm:text-xl text-zinc-400 max-w-xl mx-auto mb-2" style={{lineHeight:1.8}}><Typewriter lines={["Full-stack AI systems — let's build yours.","Scalable platforms. Shipped to production.","Design systems that people remember.","Let's build something together."]} speed={38}/></p><p className="text-sm text-zinc-600 mt-2">Open to internships & freelance</p></AS>
+    <AS delay={250}><p className="text-lg sm:text-xl text-zinc-400 max-w-xl mx-auto mb-2" style={{lineHeight:1.8}}><Typewriter lines={["Full-stack systems — from React to Spring Boot.","500+ concurrent users. 10K+ daily transactions.","AI-powered platforms. Shipped to production.","Let's build something together."]} speed={38}/></p><p className="text-sm text-zinc-600 mt-2">Open to internships & freelance</p></AS>
     <AS delay={400}><div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"><a href="#contact" className="btn-primary">Let's connect <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a><a href="#projects" className="btn-secondary">See projects <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></a></div></AS>
-    <AS delay={500}><div className="flex flex-wrap items-center justify-center gap-5 mt-10">{[{n:'2+',l:'Production Projects'},{n:'🏆',l:'Hackathon Winner'},{n:'CS',l:'Chitkara University'}].map((s,i)=><div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/[0.05]"><span className="text-sm font-bold text-violet-400">{s.n}</span><span className="text-xs text-zinc-500">{s.l}</span></div>)}</div></AS>
+    <AS delay={500}><div className="flex flex-wrap items-center justify-center gap-5 mt-10">{[{n:'3',l:'Production Projects'},{n:'8.87',l:'CGPA / 10'},{n:'🏆',l:'Hackathon Winner'},{n:'500+',l:'Concurrent Users'}].map((s,i)=><div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/[0.05]"><span className="text-sm font-bold text-violet-400">{s.n}</span><span className="text-xs text-zinc-500">{s.l}</span></div>)}</div></AS>
     <AS delay={600}><div className="mt-10"><Chat/></div></AS>
     <AS delay={700}><div className="mt-10 flex flex-col items-center gap-2 text-zinc-600"><span className="text-xs tracking-widest uppercase">Scroll to explore</span><svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></div></AS>
   </div></section>)
@@ -381,7 +414,7 @@ const LI=<><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4
 // ═══ MAIN PAGE ═══
 function MainPage({onGuestbook,onLinks}:{onGuestbook:()=>void;onLinks:()=>void}) {
   return(<>
-    <EnvLayer/><AtmoLayer/><div className="noise-overlay"/><ScrollProgress/><Navbar onGuestbook={onGuestbook}/><Hero/><BentoAbout/><AISection/>
+    <EnvLayer/><AtmoLayer/><div className="noise-overlay"/><ScrollProgress/><Navbar onGuestbook={onGuestbook}/><Hero/><BentoAbout/><ExperienceSection/><AISection/>
     <section id="projects" className="py-28 relative z-10"><div className="max-w-6xl mx-auto px-4">
       <AS><div className="text-center mb-20"><span className="text-sm font-bold text-violet-400 uppercase tracking-[0.2em]">Portfolio</span><h2 className="mt-4 text-4xl sm:text-5xl md:text-[64px] font-extrabold tracking-tighter text-white leading-[1]">Featured <span className="shimmer-text">Projects</span></h2><p className="mt-6 text-lg text-zinc-500 max-w-2xl mx-auto font-light" style={{lineHeight:1.7}}>Deep dives into systems I've built — from problem to shipped product.</p></div></AS>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">{projects.map((p,i)=>(
