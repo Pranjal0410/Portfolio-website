@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, type ReactElement } from 'react'
 import { PORTRAIT, AWARD, HACKATHON } from './images'
 import { WORLDMAP } from './worldmap'
 import './App.css'
@@ -122,7 +122,7 @@ function SkillGlobe() {
   const R=210,toRad=(d:number)=>d*Math.PI/180
   const getPos=(lat:number,lon:number)=>{const la=toRad(lat),lo=toRad(lon+rotY),rx=toRad(rotX);let x=R*Math.cos(la)*Math.sin(lo),y=-R*Math.sin(la),z=R*Math.cos(la)*Math.cos(lo);const y2=y*Math.cos(rx)-z*Math.sin(rx),z2=y*Math.sin(rx)+z*Math.cos(rx);return{x,y:y2,z:z2}}
   const icons=[{n:'TypeScript',c:'#3178C6',la:20,lo:0},{n:'React',c:'#61DAFB',la:20,lo:72},{n:'Next.js',c:'#fff',la:20,lo:144},{n:'Node.js',c:'#339933',la:20,lo:216},{n:'Python',c:'#3776AB',la:20,lo:288},{n:'Tailwind',c:'#06B6D4',la:-20,lo:36},{n:'PostgreSQL',c:'#4169E1',la:-20,lo:108},{n:'Docker',c:'#2496ED',la:-20,lo:180},{n:'Git',c:'#F05032',la:-20,lo:252},{n:'C++',c:'#00599C',la:-20,lo:324},{n:'MongoDB',c:'#47A248',la:55,lo:60},{n:'Spring',c:'#6DB33F',la:55,lo:180},{n:'Figma',c:'#F24E1E',la:55,lo:300},{n:'Expo',c:'#aaa',la:-55,lo:120},{n:'Vercel',c:'#fff',la:-55,lo:240}]
-  const wires:JSX.Element[]=[];for(let lon=0;lon<180;lon+=30){const pts:string[]=[];const pts2:string[]=[];for(let lat=-90;lat<=90;lat+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`);const p2=getPos(lat,lon+90);pts2.push(`${p2.x+R+50},${p2.y+R+50}`)};wires.push(<polyline key={`a${lon}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.05)" strokeWidth="0.5"/>);wires.push(<polyline key={`b${lon}`} points={pts2.join(' ')} fill="none" stroke="rgba(139,92,246,0.05)" strokeWidth="0.5"/>)}
+  const wires:ReactElement[]=[];for(let lon=0;lon<180;lon+=30){const pts:string[]=[];const pts2:string[]=[];for(let lat=-90;lat<=90;lat+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`);const p2=getPos(lat,lon+90);pts2.push(`${p2.x+R+50},${p2.y+R+50}`)};wires.push(<polyline key={`a${lon}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.05)" strokeWidth="0.5"/>);wires.push(<polyline key={`b${lon}`} points={pts2.join(' ')} fill="none" stroke="rgba(139,92,246,0.05)" strokeWidth="0.5"/>)}
   for(let lat=-60;lat<=60;lat+=30){const pts:string[]=[];for(let lon=0;lon<=360;lon+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`)};wires.push(<polyline key={`c${lat}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.05)" strokeWidth="0.5"/>)}
   const positioned=icons.map(ic=>({...ic,...getPos(ic.la,ic.lo)})).sort((a,b)=>a.z-b.z)
   return(
