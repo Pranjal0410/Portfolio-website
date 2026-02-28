@@ -223,7 +223,7 @@ function BentoAbout() {
   return (
     <section id="about" className="py-28 px-4 max-w-[1200px] mx-auto relative z-10">
       <AS><div className="text-center mb-16"><span className="text-sm font-bold text-violet-400 uppercase tracking-[0.2em]">About Me</span><h2 className="mt-4 text-4xl sm:text-5xl md:text-[64px] font-extrabold tracking-tighter text-white leading-[1]">Who I <span className="shimmer-text">Am</span></h2></div></AS>
-      <div className="grid grid-cols-3 gap-4" style={{gridTemplateRows:'210px 440px 175px auto'}}>
+      <div className="grid grid-cols-3 gap-4" style={{gridTemplateRows:'210px 300px 175px'}}>
         {/* Name */}
           <AS delay={50}><TiltCard className="h-full flex flex-col justify-center items-center text-center p-8">
             <h3 className="text-3xl md:text-[42px] font-extrabold tracking-tighter text-white leading-[1] mb-4" style={{letterSpacing:'-0.02em'}}>PRANJAL<br/>UDHWANI</h3>
@@ -240,7 +240,7 @@ function BentoAbout() {
           </TiltCard></AS>
 
           {/* Mindset */}
-          <AS delay={150}><TiltCard className="h-full p-7 flex flex-col justify-between">
+          <AS delay={150} className="row-span-2"><TiltCard className="h-full p-7 flex flex-col justify-between">
             <div><h4 className="text-2xl font-bold text-white mb-2">Mindset</h4><div className="h-0.5 w-8 bg-violet-500/60 rounded-full mb-4"/><p className="text-sm text-zinc-400 leading-relaxed"><strong className="text-zinc-200">Building more than software.</strong> My passions provide the <strong className="text-zinc-200">discipline and focus</strong> I need to grow.</p></div>
             <div className="mt-4 rounded-xl overflow-hidden border-2 border-violet-500/20 img-hover" style={{maxWidth:220}}><img src={HACKATHON} alt="Phosphenes Hackathon" className="w-full h-32 object-cover" loading="lazy"/><div className="bg-black/60 px-3 py-2"><span className="text-[9px] font-bold text-violet-400 uppercase tracking-wider">Phosphenes Hackathon</span></div></div>
             <p className="text-xs text-zinc-500 mt-4"><strong className="text-zinc-300">Mastering craft and mind</strong> is my path to <strong className="text-zinc-300">excellence</strong>.</p>
@@ -254,14 +254,14 @@ function BentoAbout() {
           </div></AS>
 
           {/* Craft */}
-          <AS delay={250}><TiltCard className="h-full flex flex-col justify-between overflow-hidden">
+          <AS delay={250} className="row-span-2"><TiltCard className="h-full flex flex-col justify-between overflow-hidden">
             <div className="p-7 pb-0"><h4 className="text-2xl font-bold text-white mb-2">Craft</h4><div className="h-0.5 w-8 bg-fuchsia-500/60 rounded-full mb-4"/><p className="text-sm text-zinc-400 leading-relaxed">Building scalable <strong className="text-zinc-200">apps, websites, and AI systems</strong>.</p><p className="text-sm text-zinc-400 leading-relaxed mt-2">I understand what modern tech can provide, helping deliver solutions a business <strong className="text-zinc-200">actually needs</strong>.</p></div>
             <div className="relative w-full py-3 border-y border-white/[0.04] my-3 overflow-hidden"><div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[rgba(18,16,32,1)] to-transparent z-10"/><div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[rgba(18,16,32,1)] to-transparent z-10"/><div className="animate-marquee">{[0,1].map(s=><div key={s} className="flex gap-5 items-center shrink-0 pr-5">{['Docker','Git','Next.js','React','TS','Python','Node','Tailwind'].map(t=><span key={`${s}-${t}`} className="text-[9px] font-mono font-medium text-zinc-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 hover:text-violet-400 transition-colors cursor-default"><span className="w-1.5 h-1.5 rounded-sm bg-violet-500/30"/>{t}</span>)}</div>)}</div></div>
             <div className="p-7 pt-0"><p className="text-xs text-zinc-400 mb-3">Active Hackathon competitor. Feel free to invite me to collaborate.</p><div className="flex items-center gap-2"><span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"/><span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"/></span><span className="text-[10px] font-medium text-zinc-400">Open to collaboration & freelance</span></div></div>
           </TiltCard></AS>
 
           {/* Location */}
-          <AS delay={300} className="col-span-3"><div className="location-card h-full">
+          <AS delay={300} className="col-start-2"><div className="location-card h-full">
             <div className="absolute inset-0 opacity-[0.18]" style={{backgroundImage:`url(${WORLDMAP})`,backgroundSize:'cover',backgroundPosition:'center 40%',filter:'blur(0.3px) grayscale(100%)'}}/>
             <div className="absolute inset-0 opacity-[0.05]" style={{backgroundImage:'radial-gradient(circle,rgba(139,92,246,.4) .5px,transparent .5px)',backgroundSize:'12px 12px'}}/>
             <div className="absolute inset-0 opacity-[0.025]" style={{backgroundImage:'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,92,246,.15) 3px,rgba(139,92,246,.15) 4px)'}}/>
