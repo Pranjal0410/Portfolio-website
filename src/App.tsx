@@ -223,10 +223,8 @@ function BentoAbout() {
   return (
     <section id="about" className="py-28 px-4 max-w-[1200px] mx-auto relative z-10">
       <AS><div className="text-center mb-16"><span className="text-sm font-bold text-violet-400 uppercase tracking-[0.2em]">About Me</span><h2 className="mt-4 text-4xl sm:text-5xl md:text-[64px] font-extrabold tracking-tighter text-white leading-[1]">Who I <span className="shimmer-text">Am</span></h2></div></AS>
-      <div className="bento-master-wrapper">
-        <div className="bento-inner-glow"/>
-        <div className="relative z-10 grid grid-cols-3 gap-4" style={{gridTemplateRows:'210px 440px 175px'}}>
-          {/* Name */}
+      <div className="grid grid-cols-3 gap-4" style={{gridTemplateRows:'210px 440px 175px auto'}}>
+        {/* Name */}
           <AS delay={50}><TiltCard className="h-full flex flex-col justify-center items-center text-center p-8">
             <h3 className="text-3xl md:text-[42px] font-extrabold tracking-tighter text-white leading-[1] mb-4" style={{letterSpacing:'-0.02em'}}>PRANJAL<br/>UDHWANI</h3>
             <div className="h-0.5 w-14 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full mb-3"/>
@@ -263,7 +261,7 @@ function BentoAbout() {
           </TiltCard></AS>
 
           {/* Location */}
-          <AS delay={300} className="col-start-2"><div className="location-card h-full">
+          <AS delay={300} className="col-span-3"><div className="location-card h-full">
             <div className="absolute inset-0 opacity-[0.18]" style={{backgroundImage:`url(${WORLDMAP})`,backgroundSize:'cover',backgroundPosition:'center 40%',filter:'blur(0.3px) grayscale(100%)'}}/>
             <div className="absolute inset-0 opacity-[0.05]" style={{backgroundImage:'radial-gradient(circle,rgba(139,92,246,.4) .5px,transparent .5px)',backgroundSize:'12px 12px'}}/>
             <div className="absolute inset-0 opacity-[0.025]" style={{backgroundImage:'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,92,246,.15) 3px,rgba(139,92,246,.15) 4px)'}}/>
@@ -272,7 +270,6 @@ function BentoAbout() {
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent"/>
             <div className="relative h-full flex flex-col justify-end p-6 z-20"><span className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-tighter block leading-[1]">Chandigarh, India</span><span className="text-[11px] font-mono text-zinc-400 mt-1.5 tracking-wide">30.7333° N, 76.7794° E</span><div className="flex items-center gap-1 mt-1"><span className="text-violet-400 font-bold text-sm">–</span><span className="text-[11px] font-mono text-violet-400 font-semibold">GMT+5:30</span></div></div>
           </div></AS>
-        </div>
       </div>
     </section>
   )

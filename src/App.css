@@ -11,29 +11,6 @@ html{scroll-behavior:smooth}body{font-family:var(--font-heading);background:var(
 /* ═══ LAYER 2: ATMOSPHERE ═══ */
 .atmo-glow{position:fixed;pointer-events:none;z-index:1;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.06) 0%,rgba(217,70,239,0.025) 35%,transparent 70%);transform:translate(-50%,-50%);transition:left .15s ease-out,top .15s ease-out}
 
-/* ═══ BENTO MASTER WRAPPER ═══ */
-.bento-master-wrapper{
-  position:relative;
-  background:linear-gradient(160deg,#0f0c29 0%,#1a103d 50%,#130e2a 100%);
-  border:1px solid rgba(139,92,246,.12);
-  border-radius:28px;
-  padding:40px;
-  box-shadow:
-    0 24px 80px rgba(0,0,0,.5),
-    0 0 0 1px rgba(139,92,246,.06),
-    0 0 60px rgba(139,92,246,.04),
-    inset 0 1px 0 rgba(255,255,255,.04);
-  overflow:hidden;
-}
-.bento-inner-glow{
-  position:absolute;
-  inset:0;
-  border-radius:28px;
-  background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(139,92,246,.08),transparent 70%);
-  pointer-events:none;
-  z-index:1;
-}
-
 /* ═══ LAYER 3-4: CARD SYSTEM ═══ */
 .nav-glass{background:rgba(16,16,26,.88);backdrop-filter:blur(16px);border:1px solid rgba(50,50,70,.4)}
 .premium-card{
