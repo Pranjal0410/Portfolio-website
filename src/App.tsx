@@ -23,7 +23,7 @@ function EnvLayer() {
       for (let col = Math.max(0, Math.floor((mx-rad)/sp)); col <= Math.min(Math.ceil(c.width/sp), Math.ceil((mx+rad)/sp)); col++)
         for (let row = Math.max(0, Math.floor((my-rad)/sp)); row <= Math.min(Math.ceil(c.height/sp), Math.ceil((my+rad)/sp)); row++) {
           const x = col*sp+12, y = row*sp+12, d = Math.sqrt((x-mx)**2+(y-my)**2)
-          if (d < rad) { ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI*2); ctx.fillStyle = `rgba(139,92,246,${(1-d/rad)*0.2})`; ctx.fill() }
+          if (d < rad) { const t = 1-d/rad; ctx.beginPath(); ctx.arc(x, y, 1+t*0.8, 0, Math.PI*2); ctx.fillStyle = `rgba(139,92,246,${t*0.5})`; ctx.fill() }
         }
       raf = requestAnimationFrame(draw)
     }
