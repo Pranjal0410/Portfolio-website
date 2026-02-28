@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef, useCallback, type ReactElement } from 'react'
+import { useState, useEffect, useRef, useCallback, type ReactElement, type ComponentType } from 'react'
 import { PORTRAIT, AWARD, HACKATHON } from './images'
 import { WORLDMAP } from './worldmap'
+import { SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, SiPython, SiSpringboot, SiPostgresql, SiMongodb, SiRedis, SiDocker, SiAmazonwebservices, SiGraphql, SiTailwindcss, SiOpenai, SiPrisma, SiLangchain, SiGit } from 'react-icons/si'
+import { FaJava } from 'react-icons/fa'
 import './App.css'
 
 // ═══ LAYER 1: ENVIRONMENT (dot grid near cursor) ═══
@@ -115,21 +117,53 @@ function Chat() {
 // ═══ INTERACTIVE GLOBE (BIGGER) ═══
 function SkillGlobe() {
   const [rotY,setRotY]=useState(0);const [rotX,setRotX]=useState(-15);const dragging=useRef(false);const lastPos=useRef({x:0,y:0})
+  const [hovered,setHovered]=useState<number|null>(null)
   useEffect(()=>{let raf:number;const tick=()=>{if(!dragging.current)setRotY(p=>p+0.12);raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick);return()=>cancelAnimationFrame(raf)},[])
   const onDown=(e:React.MouseEvent|React.TouchEvent)=>{dragging.current=true;const p='touches' in e?e.touches[0]:e;lastPos.current={x:p.clientX,y:p.clientY}}
   const onMove=(e:React.MouseEvent|React.TouchEvent)=>{if(!dragging.current)return;const p='touches' in e?e.touches[0]:e;setRotY(prev=>prev+(p.clientX-lastPos.current.x)*0.4);setRotX(prev=>Math.max(-60,Math.min(60,prev-(p.clientY-lastPos.current.y)*0.4)));lastPos.current={x:p.clientX,y:p.clientY}}
   useEffect(()=>{const up=()=>{dragging.current=false};window.addEventListener('mouseup',up);window.addEventListener('touchend',up);return()=>{window.removeEventListener('mouseup',up);window.removeEventListener('touchend',up)}},[])
   const R=210,toRad=(d:number)=>d*Math.PI/180
-  const getPos=(lat:number,lon:number)=>{const la=toRad(lat),lo=toRad(lon+rotY),rx=toRad(rotX);let x=R*Math.cos(la)*Math.sin(lo),y=-R*Math.sin(la),z=R*Math.cos(la)*Math.cos(lo);const y2=y*Math.cos(rx)-z*Math.sin(rx),z2=y*Math.sin(rx)+z*Math.cos(rx);return{x,y:y2,z:z2}}
-  const icons=[{n:'TypeScript',c:'#3178C6',la:20,lo:0},{n:'React',c:'#61DAFB',la:20,lo:51},{n:'Next.js',c:'#fff',la:20,lo:102},{n:'Node.js',c:'#339933',la:20,lo:153},{n:'Python',c:'#3776AB',la:20,lo:204},{n:'Java',c:'#ED8B00',la:20,lo:255},{n:'Spring Boot',c:'#6DB33F',la:20,lo:306},{n:'PostgreSQL',c:'#4169E1',la:-20,lo:36},{n:'MongoDB',c:'#47A248',la:-20,lo:108},{n:'Redis',c:'#DC382D',la:-20,lo:180},{n:'Docker',c:'#2496ED',la:-20,lo:252},{n:'AWS',c:'#FF9900',la:-20,lo:324},{n:'GraphQL',c:'#E10098',la:55,lo:60},{n:'Tailwind',c:'#06B6D4',la:55,lo:180},{n:'OpenAI',c:'#10A37F',la:55,lo:300},{n:'Prisma',c:'#2D3748',la:-55,lo:90},{n:'LangChain',c:'#1C3C3C',la:-55,lo:210},{n:'Git',c:'#F05032',la:-55,lo:330}]
+  const getPos=(lat:number,lon:number)=>{const la=toRad(lat),lo=toRad(lon+rotY),rx=toRad(rotX);const x=R*Math.cos(la)*Math.sin(lo),y=-R*Math.sin(la),z=R*Math.cos(la)*Math.cos(lo);const y2=y*Math.cos(rx)-z*Math.sin(rx),z2=y*Math.sin(rx)+z*Math.cos(rx);return{x,y:y2,z:z2}}
+  const icons:{n:string,c:string,la:number,lo:number,ic:ComponentType<{size?:number,color?:string,style?:React.CSSProperties}>}[]=[
+    {n:'TypeScript',c:'#3178C6',la:20,lo:0,ic:SiTypescript},
+    {n:'React',c:'#61DAFB',la:20,lo:51,ic:SiReact},
+    {n:'Next.js',c:'#ffffff',la:20,lo:102,ic:SiNextdotjs},
+    {n:'Node.js',c:'#339933',la:20,lo:153,ic:SiNodedotjs},
+    {n:'Python',c:'#3776AB',la:20,lo:204,ic:SiPython},
+    {n:'Java',c:'#ED8B00',la:20,lo:255,ic:FaJava},
+    {n:'Spring Boot',c:'#6DB33F',la:20,lo:306,ic:SiSpringboot},
+    {n:'PostgreSQL',c:'#4169E1',la:-20,lo:36,ic:SiPostgresql},
+    {n:'MongoDB',c:'#47A248',la:-20,lo:108,ic:SiMongodb},
+    {n:'Redis',c:'#DC382D',la:-20,lo:180,ic:SiRedis},
+    {n:'Docker',c:'#2496ED',la:-20,lo:252,ic:SiDocker},
+    {n:'AWS',c:'#FF9900',la:-20,lo:324,ic:SiAmazonwebservices},
+    {n:'GraphQL',c:'#E10098',la:55,lo:60,ic:SiGraphql},
+    {n:'Tailwind',c:'#06B6D4',la:55,lo:180,ic:SiTailwindcss},
+    {n:'OpenAI',c:'#10A37F',la:55,lo:300,ic:SiOpenai},
+    {n:'Prisma',c:'#2D3748',la:-55,lo:90,ic:SiPrisma},
+    {n:'LangChain',c:'#1C3C3C',la:-55,lo:210,ic:SiLangchain},
+    {n:'Git',c:'#F05032',la:-55,lo:330,ic:SiGit},
+  ]
   const wires:ReactElement[]=[];for(let lon=0;lon<180;lon+=30){const pts:string[]=[];const pts2:string[]=[];for(let lat=-90;lat<=90;lat+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`);const p2=getPos(lat,lon+90);pts2.push(`${p2.x+R+50},${p2.y+R+50}`)};wires.push(<polyline key={`a${lon}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="0.8"/>);wires.push(<polyline key={`b${lon}`} points={pts2.join(' ')} fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="0.8"/>)}
   for(let lat=-60;lat<=60;lat+=30){const pts:string[]=[];for(let lon=0;lon<=360;lon+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`)};wires.push(<polyline key={`c${lat}`} points={pts.join(' ')} fill="none" stroke="rgba(139,92,246,0.15)" strokeWidth="0.8"/>)}
-  const positioned=icons.map(ic=>({...ic,...getPos(ic.la,ic.lo)})).sort((a,b)=>a.z-b.z)
+  const positioned=icons.map((ic,idx)=>({...ic,idx,...getPos(ic.la,ic.lo)})).sort((a,b)=>a.z-b.z)
   return(
     <div className="relative w-full flex items-center justify-center select-none" style={{height:580,cursor:dragging.current?'grabbing':'grab'}} onMouseDown={onDown} onMouseMove={onMove} onTouchStart={onDown} onTouchMove={onMove}>
       <svg width={R*2+100} height={R*2+100} className="absolute"><circle cx={R+50} cy={R+50} r={R} fill="none" stroke="rgba(139,92,246,0.18)" strokeWidth="1"/>{wires}</svg>
       <div className="absolute w-32 h-32 bg-violet-500/25 rounded-full blur-[60px]"/>
-      {positioned.map((ic,i)=>{const s=0.55+(ic.z+R)/(2*R)*0.5,o=0.3+(ic.z+R)/(2*R)*0.7;return(<div key={i} className="absolute pointer-events-none" style={{left:`calc(50% + ${ic.x}px)`,top:`calc(50% + ${ic.y}px)`,transform:`translate(-50%,-50%) scale(${s})`,opacity:o,zIndex:Math.round(ic.z+R)}}><div className="px-3 py-1.5 rounded-xl border border-white/[0.12] backdrop-blur-sm font-mono font-semibold text-[11px] whitespace-nowrap" style={{background:`${ic.c}20`,color:ic.c,boxShadow:`0 0 16px ${ic.c}18`}}>{ic.n}</div></div>)})}
+      {positioned.map((ic)=>{const s=0.55+(ic.z+R)/(2*R)*0.5,o=0.3+(ic.z+R)/(2*R)*0.7;const isH=hovered===ic.idx;const Icon=ic.ic;return(
+        <div key={ic.idx} className={`absolute skill-icon-wrap ${isH?'skill-icon-glow':''}`}
+          style={{left:`calc(50% + ${ic.x}px)`,top:`calc(50% + ${ic.y}px)`,transform:`translate(-50%,-50%) scale(${isH?s*1.4:s})`,opacity:isH?1:o,zIndex:isH?999:Math.round(ic.z+R)}}
+          onMouseEnter={()=>setHovered(ic.idx)} onMouseLeave={()=>setHovered(null)}>
+          <div className="skill-icon-inner">
+            <Icon size={isH?32:22} color={isH?'#fff':ic.c} style={isH?{filter:`drop-shadow(0 0 10px ${ic.c}) drop-shadow(0 0 20px rgba(255,255,255,0.4))`}:{}}/>
+            <span className="skill-label font-mono font-semibold whitespace-nowrap rounded-full px-2.5 py-0.5"
+              style={{fontSize:isH?11:9,background:isH?`${ic.c}30`:'transparent',color:isH?ic.c:`${ic.c}99`,opacity:isH?1:0.7,transform:isH?'translateY(0)':'translateY(-2px)',letterSpacing:'0.05em'}}>
+              {ic.n.toUpperCase()}
+            </span>
+          </div>
+        </div>
+      )})}
     </div>
   )
 }

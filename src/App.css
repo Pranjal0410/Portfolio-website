@@ -113,5 +113,13 @@ html{scroll-behavior:smooth}body{font-family:var(--font-heading);background:var(
 ::selection{background:var(--violet);color:#fff}
 .img-hover{overflow:hidden}.img-hover img{transition:transform .5s var(--ease-premium)}.img-hover:hover img{transform:scale(1.05)}
 
+/* ═══ SKILL GLOBE HOVER GLOW ═══ */
+.skill-icon-wrap{transition:transform .3s var(--ease-premium),opacity .3s ease}
+.skill-icon-inner{display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .3s var(--ease-premium)}
+.skill-icon-inner svg{transition:color .3s ease,filter .3s ease,transform .3s var(--ease-premium)}
+.skill-icon-inner .skill-label{transition:all .3s ease}
+.skill-icon-glow svg{color:#fff!important;filter:drop-shadow(0 0 8px rgba(255,255,255,.7)) drop-shadow(0 0 20px rgba(139,92,246,.5));transform:scale(1.15)}
+.skill-icon-glow .skill-label{opacity:1!important;transform:translateY(0)!important}
+
 /* Reduced motion */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
