@@ -23,7 +23,7 @@ function EnvLayer() {
       for (let col = Math.max(0, Math.floor((mx-rad)/sp)); col <= Math.min(Math.ceil(c.width/sp), Math.ceil((mx+rad)/sp)); col++)
         for (let row = Math.max(0, Math.floor((my-rad)/sp)); row <= Math.min(Math.ceil(c.height/sp), Math.ceil((my+rad)/sp)); row++) {
           const x = col*sp+12, y = row*sp+12, d = Math.sqrt((x-mx)**2+(y-my)**2)
-          if (d < rad) { const t = 1-d/rad; ctx.beginPath(); ctx.arc(x, y, 1+t*0.8, 0, Math.PI*2); ctx.fillStyle = `rgba(212,165,116,${t*0.5})`; ctx.fill() }
+          if (d < rad) { const t = 1-d/rad; ctx.beginPath(); ctx.arc(x, y, 1+t*0.8, 0, Math.PI*2); ctx.fillStyle = `rgba(160,160,170,${t*0.35})`; ctx.fill() }
         }
       raf = requestAnimationFrame(draw)
     }
@@ -101,13 +101,13 @@ function SkillGlobe() {
     {n:'LangChain',c:'#1C3C3C',la:-55,lo:210,ic:SiLangchain},
     {n:'Git',c:'#F05032',la:-55,lo:330,ic:SiGit},
   ]
-  const wires:ReactElement[]=[];for(let lon=0;lon<180;lon+=30){const pts:string[]=[];const pts2:string[]=[];for(let lat=-90;lat<=90;lat+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`);const p2=getPos(lat,lon+90);pts2.push(`${p2.x+R+50},${p2.y+R+50}`)};wires.push(<polyline key={`a${lon}`} points={pts.join(' ')} fill="none" stroke="rgba(212,165,116,0.15)" strokeWidth="0.8"/>);wires.push(<polyline key={`b${lon}`} points={pts2.join(' ')} fill="none" stroke="rgba(212,165,116,0.15)" strokeWidth="0.8"/>)}
-  for(let lat=-60;lat<=60;lat+=30){const pts:string[]=[];for(let lon=0;lon<=360;lon+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`)};wires.push(<polyline key={`c${lat}`} points={pts.join(' ')} fill="none" stroke="rgba(212,165,116,0.15)" strokeWidth="0.8"/>)}
+  const wires:ReactElement[]=[];for(let lon=0;lon<180;lon+=30){const pts:string[]=[];const pts2:string[]=[];for(let lat=-90;lat<=90;lat+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`);const p2=getPos(lat,lon+90);pts2.push(`${p2.x+R+50},${p2.y+R+50}`)};wires.push(<polyline key={`a${lon}`} points={pts.join(' ')} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.8"/>);wires.push(<polyline key={`b${lon}`} points={pts2.join(' ')} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.8"/>)}
+  for(let lat=-60;lat<=60;lat+=30){const pts:string[]=[];for(let lon=0;lon<=360;lon+=5){const p=getPos(lat,lon);pts.push(`${p.x+R+50},${p.y+R+50}`)};wires.push(<polyline key={`c${lat}`} points={pts.join(' ')} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.8"/>)}
   const positioned=icons.map((ic,idx)=>({...ic,idx,...getPos(ic.la,ic.lo)})).sort((a,b)=>a.z-b.z)
   return(
     <div className="relative w-full flex items-center justify-center select-none" style={{height:580,cursor:dragging.current?'grabbing':'grab'}} onMouseDown={onDown} onMouseMove={onMove} onTouchStart={onDown} onTouchMove={onMove}>
-      <svg width={R*2+100} height={R*2+100} className="absolute"><circle cx={R+50} cy={R+50} r={R} fill="none" stroke="rgba(212,165,116,0.18)" strokeWidth="1"/>{wires}</svg>
-      <div className="absolute w-32 h-32 bg-[var(--accent)]/20 rounded-full blur-[60px]"/>
+      <svg width={R*2+100} height={R*2+100} className="absolute"><circle cx={R+50} cy={R+50} r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>{wires}</svg>
+      <div className="absolute w-32 h-32 rounded-full blur-[60px]" style={{background:'rgba(212,165,116,0.15)'}}/>
       {positioned.map((ic)=>{const s=0.55+(ic.z+R)/(2*R)*0.5,o=0.3+(ic.z+R)/(2*R)*0.7;const isH=hovered===ic.idx;const Icon=ic.ic;return(
         <div key={ic.idx} className={`absolute skill-icon-wrap ${isH?'skill-icon-glow':''}`}
           style={{left:`calc(50% + ${ic.x}px)`,top:`calc(50% + ${ic.y}px)`,transform:`translate(-50%,-50%) scale(${isH?s*1.4:s})`,opacity:isH?1:o,zIndex:isH?999:Math.round(ic.z+R)}}
@@ -146,13 +146,13 @@ function InfoCards() {
             className="relative flex-1 rounded-2xl p-5 cursor-default backdrop-blur-md"
             style={{
               background: isHovered
-                ? 'linear-gradient(145deg, rgba(30,24,52,0.98), rgba(40,30,65,0.9))'
-                : 'linear-gradient(145deg, rgba(20,16,32,0.95), rgba(28,22,44,0.7))',
+                ? 'linear-gradient(145deg, rgba(28,28,30,0.98), rgba(34,34,38,0.9))'
+                : 'linear-gradient(145deg, rgba(20,20,22,0.95), rgba(26,26,30,0.7))',
               border: isHovered
-                ? '1px solid rgba(212,165,116,0.5)'
-                : '1px solid rgba(80,70,110,0.2)',
+                ? '1px solid rgba(212,165,116,0.4)'
+                : '1px solid rgba(255,255,255,0.06)',
               boxShadow: isHovered
-                ? '0 0 24px rgba(212,165,116,0.15), 0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
+                ? '0 0 24px rgba(212,165,116,0.1), 0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
                 : '0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)',
               transform: isHovered
                 ? 'translateY(-10px) scale(1.04)'
@@ -167,10 +167,9 @@ function InfoCards() {
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
           >
-            {/* Purple radial glow behind hovered card */}
             {isHovered && (
               <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{
-                background: 'radial-gradient(ellipse at center, rgba(212,165,116,0.08) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, rgba(212,165,116,0.06) 0%, transparent 70%)',
               }}/>
             )}
             <span className="text-[11px] font-bold text-white uppercase tracking-wider block mb-2 relative z-10">{c.t}</span>
@@ -186,12 +185,12 @@ function InfoCards() {
 function BentoAbout() {
   return (
     <section id="about" className="py-28 px-4 max-w-[1200px] mx-auto relative z-10">
-      <AS><div className="mb-16"><div className="section-label"><div className="section-label-line"/><span className="section-label-text">About</span></div><h2 className="text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tighter text-white leading-[1]">Who I <span className="shimmer-text">am</span>.</h2></div></AS>
+      <AS><div className="text-center mb-16"><div className="section-label justify-center"><div className="section-label-line"/><span className="section-label-text">About</span></div><h2 className="text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tighter text-white leading-[1]">Who I <span className="shimmer-text">am</span>.</h2></div></AS>
       <div className="grid grid-cols-3 gap-4" style={{gridTemplateRows:'210px 300px 175px'}}>
         {/* Name */}
           <AS delay={50}><TiltCard className="h-full flex flex-col justify-center items-center text-center p-8">
             <h3 className="text-3xl md:text-[42px] font-extrabold tracking-tighter text-white leading-[1] mb-4" style={{letterSpacing:'-0.02em'}}>PRANJAL<br/>UDHWANI</h3>
-            <div className="h-0.5 w-14 bg-gradient-to-r from-[var(--accent)] to-[#e8c4a0] rounded-full mb-3"/>
+            <div className="h-0.5 w-14 rounded-full mb-3" style={{background:'linear-gradient(to right, #d4a574, #e8c4a0)'}}/>
             <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">Full-Stack AI Developer</span>
           </TiltCard></AS>
 
@@ -205,8 +204,8 @@ function BentoAbout() {
 
           {/* Mindset */}
           <AS delay={150} className="row-span-2"><TiltCard className="h-full p-7 flex flex-col justify-between">
-            <div><h4 className="text-2xl font-bold text-white mb-2">Mindset</h4><div className="h-0.5 w-8 bg-[var(--accent)]/50 rounded-full mb-4"/><p className="text-sm text-zinc-400 leading-relaxed"><strong className="text-zinc-200">Building more than software.</strong> My passions provide the <strong className="text-zinc-200">discipline and focus</strong> I need to grow.</p></div>
-            <div className="mt-4 rounded-xl overflow-hidden border-2 border-[var(--accent)]/15 img-hover" style={{maxWidth:220}}><img src={HACKATHON} alt="Phosphenes Hackathon" className="w-full h-32 object-cover" loading="lazy"/><div className="bg-black/60 px-3 py-2"><span className="text-[9px] font-bold text-[var(--accent)] uppercase tracking-wider">Phosphenes Hackathon</span></div></div>
+            <div><h4 className="text-2xl font-bold text-white mb-2">Mindset</h4><div className="h-0.5 w-8 rounded-full mb-4" style={{background:'rgba(212,165,116,0.5)'}}/><p className="text-sm text-zinc-400 leading-relaxed"><strong className="text-zinc-200">Building more than software.</strong> My passions provide the <strong className="text-zinc-200">discipline and focus</strong> I need to grow.</p></div>
+            <div className="mt-4 rounded-xl overflow-hidden img-hover" style={{maxWidth:220,border:'2px solid rgba(212,165,116,0.15)'}}><img src={HACKATHON} alt="Phosphenes Hackathon" className="w-full h-32 object-cover" loading="lazy"/><div className="bg-black/60 px-3 py-2"><span className="text-[9px] font-bold uppercase tracking-wider" style={{color:'#d4a574'}}>Phosphenes Hackathon</span></div></div>
             <p className="text-xs text-zinc-500 mt-4"><strong className="text-zinc-300">Mastering craft and mind</strong> is my path to <strong className="text-zinc-300">excellence</strong>.</p>
           </TiltCard></AS>
 
@@ -214,13 +213,13 @@ function BentoAbout() {
           <AS delay={200}><div className="premium-card h-full overflow-hidden relative" style={{borderRadius:28}}>
             <img src={PORTRAIT} alt="Pranjal" className="absolute inset-0 w-full h-full object-cover slide-a" style={{objectPosition:'center 30%'}} loading="lazy"/>
             <img src={AWARD} alt="Award" className="absolute inset-0 w-full h-full object-cover slide-b" loading="lazy"/>
-            <div className="absolute inset-0 border border-[var(--accent)]/10 rounded-[28px] pointer-events-none"/>
+            <div className="absolute inset-0 rounded-[28px] pointer-events-none" style={{border:'1px solid rgba(212,165,116,0.1)'}}/>
           </div></AS>
 
           {/* Craft */}
           <AS delay={250} className="row-span-2"><TiltCard className="h-full flex flex-col justify-between overflow-hidden">
-            <div className="p-7 pb-0"><h4 className="text-2xl font-bold text-white mb-2">Craft</h4><div className="h-0.5 w-8 bg-fuchsia-500/60 rounded-full mb-4"/><p className="text-sm text-zinc-400 leading-relaxed">Building scalable <strong className="text-zinc-200">apps, websites, and AI systems</strong>.</p><p className="text-sm text-zinc-400 leading-relaxed mt-2">I understand what modern tech can provide, helping deliver solutions a business <strong className="text-zinc-200">actually needs</strong>.</p></div>
-            <div className="relative w-full py-3 border-y border-white/[0.04] my-3 overflow-hidden"><div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[rgba(17,17,19,1)] to-transparent z-10"/><div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[rgba(17,17,19,1)] to-transparent z-10"/><div className="animate-marquee">{[0,1].map(s=><div key={s} className="flex gap-5 items-center shrink-0 pr-5">{['React','Next.js','Node.js','Spring Boot','TypeScript','Python','PostgreSQL','Docker','AWS','Redis'].map(t=><span key={`${s}-${t}`} className="text-[9px] font-mono font-medium text-zinc-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 hover:text-[var(--accent)] transition-colors cursor-default"><span className="w-1.5 h-1.5 rounded-sm bg-[var(--accent)]/25"/>{t}</span>)}</div>)}</div></div>
+            <div className="p-7 pb-0"><h4 className="text-2xl font-bold text-white mb-2">Craft</h4><div className="h-0.5 w-8 rounded-full mb-4" style={{background:'rgba(212,165,116,0.5)'}}/><p className="text-sm text-zinc-400 leading-relaxed">Building scalable <strong className="text-zinc-200">apps, websites, and AI systems</strong>.</p><p className="text-sm text-zinc-400 leading-relaxed mt-2">I understand what modern tech can provide, helping deliver solutions a business <strong className="text-zinc-200">actually needs</strong>.</p></div>
+            <div className="relative w-full py-3 border-y border-white/[0.04] my-3 overflow-hidden"><div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#111113] to-transparent z-10"/><div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#111113] to-transparent z-10"/><div className="animate-marquee">{[0,1].map(s=><div key={s} className="flex gap-5 items-center shrink-0 pr-5">{['React','Next.js','Node.js','Spring Boot','TypeScript','Python','PostgreSQL','Docker','AWS','Redis'].map(t=><span key={`${s}-${t}`} className="text-[9px] font-mono font-medium text-zinc-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 hover:text-amber-300 transition-colors cursor-default"><span className="w-1.5 h-1.5 rounded-sm" style={{background:'rgba(212,165,116,0.25)'}}/>{t}</span>)}</div>)}</div></div>
             <div className="p-7 pt-0"><p className="text-xs text-zinc-400 mb-3">Active Hackathon competitor. Feel free to invite me to collaborate.</p><div className="flex items-center gap-2"><span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"/><span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"/></span><span className="text-[10px] font-medium text-zinc-400">Open to collaboration & freelance</span></div></div>
           </TiltCard></AS>
 
@@ -230,9 +229,9 @@ function BentoAbout() {
             <div className="absolute inset-0 opacity-[0.05]" style={{backgroundImage:'radial-gradient(circle,rgba(212,165,116,.4) .5px,transparent .5px)',backgroundSize:'12px 12px'}}/>
             <div className="absolute inset-0 opacity-[0.025]" style={{backgroundImage:'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(212,165,116,.15) 3px,rgba(212,165,116,.15) 4px)'}}/>
             <div className="scan-beam"/><div className="scan-bright"/>
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/25 to-transparent"/>
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/15 to-transparent"/>
-            <div className="relative h-full flex flex-col justify-end p-6 z-20"><span className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-tighter block leading-[1]">Chandigarh, India</span><span className="text-[11px] font-mono text-zinc-400 mt-1.5 tracking-wide">30.7333° N, 76.7794° E</span><div className="flex items-center gap-1 mt-1"><span className="text-[var(--accent)] font-bold text-sm">–</span><span className="text-[11px] font-mono text-[var(--accent)] font-semibold">GMT+5:30</span></div></div>
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-800/25 to-transparent"/>
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-800/15 to-transparent"/>
+            <div className="relative h-full flex flex-col justify-end p-6 z-20"><span className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-tighter block leading-[1]">Chandigarh, India</span><span className="text-[11px] font-mono text-zinc-400 mt-1.5 tracking-wide">30.7333° N, 76.7794° E</span><div className="flex items-center gap-1 mt-1"><span className="font-bold text-sm" style={{color:'#d4a574'}}>–</span><span className="text-[11px] font-mono font-semibold" style={{color:'#d4a574'}}>GMT+5:30</span></div></div>
           </div></AS>
       </div>
     </section>
@@ -249,7 +248,7 @@ function ExperienceSection() {
   ]
   return (
     <section id="experience" className="py-28 px-4 max-w-[1200px] mx-auto relative z-10">
-      <AS><div className="mb-16"><div className="section-label"><div className="section-label-line"/><span className="section-label-text">Experience</span></div><h2 className="text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tighter text-white leading-[1]">Where I've <span className="shimmer-text">worked</span>.</h2></div></AS>
+      <AS><div className="text-center mb-16"><div className="section-label justify-center"><div className="section-label-line"/><span className="section-label-text">Experience</span></div><h2 className="text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tighter text-white leading-[1]">Where I've <span className="shimmer-text">worked</span>.</h2></div></AS>
       <AS delay={150}><TiltCard className="p-8 md:p-10">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
           <div>
@@ -258,7 +257,7 @@ function ExperienceSection() {
           </div>
           <span className="text-[11px] font-mono tracking-wide shrink-0" style={{color:'var(--accent)'}}>Mar 2025 – Oct 2025</span>
         </div>
-        <div className="h-px w-full bg-gradient-to-r from-[var(--accent)]/20 via-[var(--accent)]/10 to-transparent mb-6"/>
+        <div className="h-px w-full mb-6" style={{background:'linear-gradient(to right, rgba(212,165,116,0.2), rgba(212,165,116,0.1), transparent)'}}/>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {metrics.map((m, i) => (
             <div key={i} className="flex items-start gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
@@ -273,7 +272,7 @@ function ExperienceSection() {
 }
 
 // ═══ PROJECTS ═══
-const projects=[{num:'01',type:'Real-Time Platform',title:'Real-Time Incident Response Platform',desc:'Built a real-time incident coordination platform supporting 500+ concurrent users with WebSocket-based state synchronization, live presence indicators, and immutable audit logging.',result:'500+ concurrent users • 35% faster incident resolution • Event-driven architecture with REST + WebSockets',tags:['React','Node.js','Socket.io','MongoDB','Zustand','JWT'],gradient:'from-amber-700 to-orange-600',img:'/incident-hub.png',link:'https://github.com/Pranjal0410/Real-Time-Incident-Response-System'},{num:'02',type:'AI Platform',title:'AI Career Coach Platform',desc:'Full-stack career coaching app with OAuth 2.0 authentication, personalized onboarding, GPT-4 and Gemini API integration for resume analysis, cover letter generation, and mock interviews.',result:'1,000+ resume analyses • Sub-2s response times • ATS-optimized PDF export • Scheduled cron jobs for industry insights',tags:['Next.js 14','Prisma','PostgreSQL','OpenAI API','Gemini API','Clerk Auth'],gradient:'from-emerald-500 to-cyan-500',img:'/career-coach.png',link:'https://github.com/Pranjal0410/Ai-Powered-Calculator-App'},{num:'03',type:'Backend System',title:'Real Estate Investment Platform',desc:'Role-based investment system backend handling 10,000+ daily transactions with ACID-compliant operations, JWT authentication with refresh token rotation, and normalized MySQL schema.',result:'10,000+ daily transactions • 95% code coverage • RBAC for investor/admin/analyst roles',tags:['Java 17','Spring Boot 3','MySQL','REST APIs','JWT'],gradient:'from-orange-500 to-amber-500',img:'/real-estate.png',link:'https://github.com/Pranjal0410/real-estate-project'}]
+const projects=[{num:'01',type:'Real-Time Platform',title:'Real-Time Incident Response Platform',desc:'Built a real-time incident coordination platform supporting 500+ concurrent users with WebSocket-based state synchronization, live presence indicators, and immutable audit logging.',result:'500+ concurrent users • 35% faster incident resolution • Event-driven architecture with REST + WebSockets',tags:['React','Node.js','Socket.io','MongoDB','Zustand','JWT'],gradient:'from-amber-700 to-orange-600',img:'/incident-hub.png',link:'https://github.com/Pranjal0410/Real-Time-Incident-Response-System'},{num:'02',type:'AI Platform',title:'AI Career Coach Platform',desc:'Full-stack career coaching app with OAuth 2.0 authentication, personalized onboarding, GPT-4 and Gemini API integration for resume analysis, cover letter generation, and mock interviews.',result:'1,000+ resume analyses • Sub-2s response times • ATS-optimized PDF export • Scheduled cron jobs for industry insights',tags:['Next.js 14','Prisma','PostgreSQL','OpenAI API','Gemini API','Clerk Auth'],gradient:'from-emerald-500 to-cyan-500',img:'/career-coach.png',link:'https://github.com/Pranjal0410/AI-CareerCoach'},{num:'03',type:'Backend System',title:'Real Estate Investment Platform',desc:'Role-based investment system backend handling 10,000+ daily transactions with ACID-compliant operations, JWT authentication with refresh token rotation, and normalized MySQL schema.',result:'10,000+ daily transactions • 95% code coverage • RBAC for investor/admin/analyst roles',tags:['Java 17','Spring Boot 3','MySQL','REST APIs','JWT'],gradient:'from-orange-500 to-amber-500',img:'/real-estate.png',link:'https://github.com/Pranjal0410/real-estate-project'}]
 
 function Navbar() {
   const [s,setS]=useState(false);const [o,setO]=useState(false)
@@ -302,7 +301,7 @@ const LI=<><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4
 function MainPage() {
   return(<>
     <EnvLayer/><AtmoLayer/><div className="noise-overlay"/><ScrollProgress/><Navbar/><Hero/><BentoAbout/><ExperienceSection/>    <section id="projects" className="py-28 relative z-10"><div className="max-w-6xl mx-auto px-4">
-      <AS><div className="mb-20"><div className="section-label"><div className="section-label-line"/><span className="section-label-text">Featured Projects</span></div><h2 className="text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tighter text-white leading-[1]">Work that shipped.</h2><p className="mt-5 text-lg text-zinc-500 max-w-xl font-light" style={{lineHeight:1.7}}>Deep dives into systems I've built — from problem to shipped product.</p></div></AS>
+      <AS><div className="text-center mb-20"><div className="section-label justify-center"><div className="section-label-line"/><span className="section-label-text">Featured Projects</span></div><h2 className="text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tighter text-white leading-[1]">Work that shipped.</h2><p className="mt-5 text-lg text-zinc-500 max-w-xl mx-auto font-light" style={{lineHeight:1.7}}>Deep dives into systems I've built — from problem to shipped product.</p></div></AS>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">{projects.map((p,i)=>(
         <AS key={i} delay={i*120}><a href={p.link} target="_blank" rel="noopener noreferrer" className="block"><div className="premium-card p-0 overflow-hidden group"><div className={`relative w-full aspect-[5/3] bg-gradient-to-br ${p.gradient} p-6 md:p-8 flex flex-col justify-end overflow-hidden`}>{'img' in p && p.img && <img src={p.img} alt={p.title} className="absolute inset-0 w-full h-full object-cover object-top" loading="lazy"/>}{'img' in p && p.img && <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"/>}<div className="absolute top-4 left-6 flex items-center gap-3 z-10"><span className="text-[10px] font-mono tracking-wider uppercase text-white/50">{p.num}</span><span className="w-5 h-px bg-white/20"/><span className="text-[10px] font-mono tracking-wider uppercase text-white/50">{p.type}</span></div><p className="text-white/90 text-sm font-medium max-w-md relative z-10">{p.desc}</p><div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-8"><p className="text-white text-center text-sm font-medium">{p.result}</p></div></div><div className="p-5"><h3 className="text-base font-semibold text-white mb-2 tracking-tight">{p.title}</h3><div className="flex flex-wrap gap-2">{p.tags.map(t=><span key={t} className="px-3 py-1 text-[10px] font-mono rounded-md tracking-wider bg-white/[0.03] border border-white/[0.06] text-zinc-500">{t}</span>)}</div></div></div></a></AS>
       ))}</div>
@@ -314,7 +313,6 @@ function MainPage() {
       <AS delay={200}><div className="flex flex-col sm:flex-row items-center justify-center gap-4"><a href="mailto:udhwanipranjal@gmail.com?subject=Let's%20connect&body=Hi%20Pranjal%20—%20I'd%20like%20to%20talk%20about..." className="btn-primary">Get in touch <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a><a href="https://www.linkedin.com/in/pranjal-udhwani/" target="_blank" rel="noopener noreferrer" className="btn-secondary"><svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">{LI}</svg>LinkedIn</a><a href="https://github.com/Pranjal0410" target="_blank" rel="noopener noreferrer" className="btn-secondary"><svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">{GH}</svg>GitHub</a></div></AS>
     </section>
     <footer className="py-10 px-4 border-t border-white/[0.04] relative z-10"><div className="max-w-6xl mx-auto text-center"><p className="text-xs font-mono text-zinc-600 tracking-wide">Designed & built by Pranjal Udhwani · 2026</p></div></footer>
-    <a href="mailto:udhwanipranjal@gmail.com?subject=Let's%20connect" className="sticky-cta" aria-label="Email"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>Get in touch</a>
   </>)
 }
 
